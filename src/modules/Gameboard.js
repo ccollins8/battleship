@@ -1,5 +1,7 @@
 import Ship from "./Ship.js";
 
+const size = 10
+
 export default class Gameboard {
   constructor() {
     this.board = this.buildBoard();
@@ -8,9 +10,9 @@ export default class Gameboard {
   buildBoard() {
     let board = [];
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < size; i++) {
       board.push([]);
-      for (let j = 0; j < 10; j++) {
+      for (let j = 0; j < size; j++) {
         board[i][j] = ""; // Cell can be empty, hit, miss, etc.
       }
     }
@@ -36,9 +38,30 @@ export default class Gameboard {
         }
     } else {
         for (let i = 0; i < ship.length; i++) {
-            this.board[x][y + i]
+            this.board[x][y + i] = ship
         }
     }
+  }
+
+  isPlacementPossible(ship, x, y, isVertical) {
+    // check if placement is out of bounds
+    if (isVertical) {
+        if (x + ship.length > size) return false
+    } else {
+        if (y + ship.length > size) return false
+    }
+
+    // check if placement collides with other ship/ships
+    if (isVertical) {
+        for (let i = 0; i < ship.length; i++) {
+            if (this.board[x + i][y] instanceof Ship) return false
+        }
+    } else {
+        for (let i = 0; i < ship.length; i++) {
+            if (this.board[x][y + i] instanceof Ship) return false
+        }
+    }
+
   }
 
   receiveAttack(cords) {}
