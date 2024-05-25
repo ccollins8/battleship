@@ -16,12 +16,3 @@ export default class Ship {
     }
   }
 }
-
-const ship1 = new Ship(4);
-ship1.hit();
-ship1.hit();
-ship1.hit();
-console.log(ship1.isSunk());
-ship1.hit();
-console.log(ship1);
-console.log(ship1.isSunk());
