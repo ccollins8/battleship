@@ -1,3 +1,20 @@
 h1 {
   color: red;
 }
+
+.left, .right {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(10,32px);
+  grid-template-rows: repeat(10, 32px);
+}
+
+.cell {
+  border: 1px solid black;
+}
+
+.cell:hover {
+  background-color: grey;
+  cursor: pointer;
+}
+
