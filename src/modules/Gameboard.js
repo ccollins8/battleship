@@ -1,10 +1,12 @@
 import Ship from "./Ship.js";
 
-const size = 10
+export const size = 10
 
 export default class Gameboard {
   constructor() {
     this.board = this.buildBoard();
+    this.missedShots = new Array(10).fill(null).map(() => new Array(10).fill(false));
+
   }
 
   buildBoard() {
@@ -21,16 +23,7 @@ export default class Gameboard {
   }
 
   placeShip(ship, x, y, isVertical) {
-
-    if (isVertical) {
-        if (x + shipLength > this.board.length) {
-          return false
-        }
-      } else {
-        if (y + shipLength > this.board[0].length) {
-          return false
-        }
-      }
+    if (!this.isPlacementPossible(ship,x,y,isVertical)) return false
     
     if (isVertical) {
         for (let i = 0; i < ship.length; i++) {
@@ -44,7 +37,10 @@ export default class Gameboard {
   }
 
   isPlacementPossible(ship, x, y, isVertical) {
-    // check if placement is out of bounds
+    // check if original placement is out of bounds
+    if (x < 0 || x > size - 1 || y < 0 || y > size - 1) return false
+
+    // check if ship goes out of bounds
     if (isVertical) {
         if (x + ship.length > size) return false
     } else {
@@ -61,12 +57,42 @@ export default class Gameboard {
             if (this.board[x][y + i] instanceof Ship) return false
         }
     }
+    return true
 
   }
 
-  receiveAttack(cords) {}
+  receiveAttack(x,y) {
+    const position = this.board[x][y]
+    if (position instanceof Ship) {
+      position.hit()
+      this.board[x][y] = 'hit'
+    } else if (position == '') {
+      this.missedShots[x][y] = true
+    }
+  }
+
+  allShipsSunk() {
+    for (let i = 0; i < size; i++) {
+      for (let j = 0; j < size; j++) {
+        if (this.board[i][j] instanceof Ship) {
+          if (!this.board[i][j].isSunk()) {
+            return false
+          }
+        }
+      }
+    }
+    return true
+  }
 }
 
-const gb1 = new Gameboard();
-console.log(gb1.board);
+// const gameboard = new Gameboard
+//   const board = gameboard.board
+//   const ship1 = new Ship(4)
+//   const ship2 = new Ship(4)
+
+//   gameboard.placeShip(ship1,0,4,true)
+//   gameboard.placeShip(ship2,3,2,false)
+//   gameboard.receiveAttack(2,4)
+
+//   console.log(board)
 
