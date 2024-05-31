@@ -2,6 +2,11 @@ h1 {
   color: red;
 }
 
+main {
+  display: flex;
+  justify-content: space-around;
+}
+
 .left, .right {
   display: grid;
   gap: 1px;
