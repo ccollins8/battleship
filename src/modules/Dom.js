@@ -5,14 +5,14 @@ const right = document.querySelector('.right')
 
 export default class Dom {
     
-     static renderBoard(gameboard) {
-        left.innerHTML = ''
+     static renderBoard(gameboard,container) {
+        container.innerHTML = ''
         for (let i = 0; i < 10; i++ ) {
             for (let j = 0; j < 10; j++) {
                 const cell = document.createElement('div')
                 cell.id = [i,j]
                 cell.classList.add('cell')
-                left.appendChild(cell)
+                container.appendChild(cell)
                 if (gameboard.missedShots[i][j] == true) {
                     cell.style.backgroundColor = 'red'
                 } else if (gameboard.board[i][j] == 'hit') {
