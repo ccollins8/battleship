@@ -34,6 +34,31 @@ export default class Gameboard {
             this.board[x][y + i] = ship
         }
     }
+    return true
+  }
+
+  placeShipsRandomly() {
+
+    const ship1 = new Ship(4)
+    const ship2 = new Ship(3)
+    const ship3 = new Ship(2)
+    const ship4 = new Ship(1)
+
+    const ships = [ship1,ship2,ship3,ship4]
+
+    let shipsPlaced = 0;
+    while (shipsPlaced < 4) {
+      const x = Math.floor(Math.random()*10)
+      const y = Math.floor(Math.random()*10)
+      const isVertical = Math.floor(Math.random()*2)
+
+      if (this.placeShip(ships[shipsPlaced],x,y,isVertical)) {
+        shipsPlaced++
+      }
+
+    }
+
+
   }
 
   isPlacementPossible(ship, x, y, isVertical) {

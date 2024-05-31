@@ -20,16 +20,8 @@ p1.gameboard.placeShip(p1ship2, 8, 6, false)
 p1.gameboard.placeShip(p1ship3, 4, 7, false)
 p1.gameboard.placeShip(p1ship4, 7, 8, true)
 
-// p2 ships
-const p2ship1 = new Ship(4)
-const p2ship2 = new Ship(3)
-const p2ship3 = new Ship(2)
-const p2ship4 = new Ship(1)
-
-p2.gameboard.placeShip(p2ship1, 3, 2, true)
-p2.gameboard.placeShip(p2ship2, 6, 4, false)
-p2.gameboard.placeShip(p2ship3, 4, 7, false)
-p2.gameboard.placeShip(p2ship4, 7, 7, true)
+p2.gameboard.placeShipsRandomly()
+console.log(p2.gameboard.board)
 
 const left = document.querySelector('.left')
 const right = document.querySelector('.right')
