@@ -99,12 +99,11 @@ export default class Gameboard {
   receiveAttackRandomly() {
     let x = Math.floor(Math.random()*10)
     let y = Math.floor(Math.random()*10)
-    while (this.missedShots[x][y] || this.board[x][y] == 'hit') {
+    while ((this.missedShots[x][y] || this.board[x][y] == 'hit') && this.missedShots.length < 90) {
       x = Math.floor(Math.random()*10)
       y = Math.floor(Math.random()*10)
     }
     this.receiveAttack(x,y)
-    console.log(this.board)
   }
 
   allShipsSunk() {

@@ -5,7 +5,7 @@ const right = document.querySelector('.right')
 
 export default class Dom {
     
-     static renderBoard(gameboard,container) {
+    static renderBoard(gameboard,container) {
         container.innerHTML = ''
         for (let i = 0; i < 10; i++ ) {
             for (let j = 0; j < 10; j++) {
@@ -21,6 +21,22 @@ export default class Dom {
             }
         }
     }
+
+    static displayEnd(winner) {
+        const dialog = document.querySelector('dialog')
+        const h2 = document.querySelector('dialog h2')
+        if (winner.type != 'computer') {
+            console.log("You Won!")
+            h2.textContent = 'You Win!'
+            dialog.showModal()
+
+        } else {
+            console.log("You Lose!")
+            h2.textContent = "You Lose!"
+            dialog.showModal()
+        }
+    }
+    
 }
 
 

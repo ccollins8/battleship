@@ -29,16 +29,6 @@ const right = document.querySelector('.right')
 Dom.renderBoard(p1.gameboard, left)
 Dom.renderBoard(p2.gameboard, right)
 
-// left.addEventListener("click", (e) => {
-//     if (e.target.classList.contains("cell") && CurrentPlayer == p1) {
-//         const split_coords = e.target.id.split(',')
-//         const x = parseInt(split_coords[0])
-//         const y = parseInt(split_coords[1])
-//         CurrentPlayer = p2
-        
-//     }
-// })
-
 right.addEventListener("click", (e) => {
     if (e.target.classList.contains("cell")) {
         const split_coords = e.target.id.split(',')
@@ -48,5 +38,11 @@ right.addEventListener("click", (e) => {
         Dom.renderBoard(p2.gameboard, right)
         p1.gameboard.receiveAttackRandomly()
         Dom.renderBoard(p1.gameboard, left)
+        if (p2.gameboard.allShipsSunk()) {
+            Dom.displayEnd(p1)
+        }
+        if (p1.gameboard.allShipsSunk()) {
+            Dom.displayEnd(p2)
+        }
     }
 })
