@@ -29,6 +29,7 @@ const right = document.querySelector('.right')
 Dom.renderBoard(p1.gameboard, left)
 Dom.renderBoard(p2.gameboard, right)
 
+
 right.addEventListener("click", (e) => {
     if (e.target.classList.contains("cell")) {
         const split_coords = e.target.id.split(',')
@@ -41,8 +42,33 @@ right.addEventListener("click", (e) => {
         if (p2.gameboard.allShipsSunk()) {
             Dom.displayEnd(p1)
         }
-        if (p1.gameboard.allShipsSunk()) {
+        else if (p1.gameboard.allShipsSunk()) {
             Dom.displayEnd(p2)
         }
     }
 })
+
+const playAgain = document.querySelector('dialog button')
+const dialog = document.querySelector('dialog')
+
+playAgain.addEventListener("click", () => {
+    dialog.close()
+    resetGame()
+})
+
+function resetGame() {
+    p1.gameboard.board = p1.gameboard.buildBoard()
+    p2.gameboard.board = p2.gameboard.buildBoard()
+    p1.gameboard.missedShots = new Array(10).fill(null).map(() => new Array(10).fill(false));
+    p2.gameboard.missedShots = new Array(10).fill(null).map(() => new Array(10).fill(false));
+    Dom.renderBoard(p1.gameboard, left)
+    Dom.renderBoard(p2.gameboard, right)
+
+    p1.gameboard.placeShip(p1ship1, 5, 2, true)
+    p1.gameboard.placeShip(p1ship2, 8, 6, false)
+    p1.gameboard.placeShip(p1ship3, 4, 7, false)
+    p1.gameboard.placeShip(p1ship4, 7, 8, true)
+
+    p2.gameboard.placeShipsRandomly()
+
+}
