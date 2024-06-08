@@ -7,18 +7,20 @@ import Player from "./modules/Player";
 const p1 = new Player('corey',true)
 const p2 = new Player('bot', false)
 
-let CurrentPlayer = p1
+Dom.placeShips()
+
+const ships = [new Ship(4), new Ship(3), new Ship(2), new Ship(1)]
 
 // p1 ships
-const p1ship1 = new Ship(4)
-const p1ship2 = new Ship(3)
-const p1ship3 = new Ship(2)
-const p1ship4 = new Ship(1)
+// const p1ship1 = new Ship(4)
+// const p1ship2 = new Ship(3)
+// const p1ship3 = new Ship(2)
+// const p1ship4 = new Ship(1)
 
-p1.gameboard.placeShip(p1ship1, 5, 2, true)
-p1.gameboard.placeShip(p1ship2, 8, 6, false)
-p1.gameboard.placeShip(p1ship3, 4, 7, false)
-p1.gameboard.placeShip(p1ship4, 7, 8, true)
+// p1.gameboard.placeShip(p1ship1, 5, 2, true)
+// p1.gameboard.placeShip(p1ship2, 8, 6, false)
+// p1.gameboard.placeShip(p1ship3, 4, 7, false)
+// p1.gameboard.placeShip(p1ship4, 7, 8, true)
 
 p2.gameboard.placeShipsRandomly()
 console.log(p2.gameboard.board)
@@ -48,11 +50,11 @@ right.addEventListener("click", (e) => {
     }
 })
 
-const playAgain = document.querySelector('dialog button')
-const dialog = document.querySelector('dialog')
+const playAgainBtn = document.querySelector('.play-again button')
+const playAgainDialog = document.querySelector('.play-again')
 
-playAgain.addEventListener("click", () => {
-    dialog.close()
+playAgainBtn.addEventListener("click", () => {
+    playAgainDialog.close()
     resetGame()
 })
 
@@ -70,5 +72,31 @@ function resetGame() {
     p1.gameboard.placeShip(p1ship4, 7, 8, true)
 
     p2.gameboard.placeShipsRandomly()
+    // put ships = [...] here later
 
 }
+
+const setBoardBtn = document.querySelector('.set-board button')
+const setBoardDiaglog = document.querySelector('.set-board')
+
+const setX = document.querySelector('#x')
+const setY = document.querySelector('#y')
+
+setBoardBtn.addEventListener('click', () => {
+    console.log(setX.value)
+    console.log(setY.value)
+
+    const x = parseInt(setX.value)
+    const y = parseInt(setY.value)
+    console.log(typeof(x))
+
+    // p1.gameboard.placeShip(p1ship1, 5, 2, true)
+    if (p1.gameboard.placeShip(ships[0], x, y, true)) {
+        ships.shift()
+        if (ships.length == 0) setBoardDiaglog.close()
+        
+    }
+    console.log(p1.gameboard.board)
+
+})
+

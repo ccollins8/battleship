@@ -23,8 +23,8 @@ export default class Dom {
     }
 
     static displayEnd(winner) {
-        const dialog = document.querySelector('dialog')
-        const h2 = document.querySelector('dialog h2')
+        const dialog = document.querySelector('.play-again')
+        const h2 = document.querySelector('.play-again h2')
         if (winner.type != 'computer') {
             console.log("You Won!")
             h2.textContent = 'You Win!'
@@ -35,6 +35,12 @@ export default class Dom {
             h2.textContent = "You Lose!"
             dialog.showModal()
         }
+    }
+
+    static placeShips() {
+        const dialog = document.querySelector('.set-board')
+        dialog.showModal()
+
     }
     
 }
