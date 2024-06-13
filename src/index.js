@@ -9,7 +9,7 @@ const p2 = new Player('bot', false)
 
 Dom.placeShips()
 
-const ships = [new Ship(4), new Ship(3), new Ship(2), new Ship(1)]
+let ships = [new Ship(4), new Ship(3), new Ship(2), new Ship(1)]
 
 // p1 ships
 // const p1ship1 = new Ship(4)
@@ -66,21 +66,26 @@ function resetGame() {
     Dom.renderBoard(p1.gameboard, left)
     Dom.renderBoard(p2.gameboard, right)
 
-    p1.gameboard.placeShip(p1ship1, 5, 2, true)
-    p1.gameboard.placeShip(p1ship2, 8, 6, false)
-    p1.gameboard.placeShip(p1ship3, 4, 7, false)
-    p1.gameboard.placeShip(p1ship4, 7, 8, true)
+    // p1.gameboard.placeShip(p1ship1, 5, 2, true)
+    // p1.gameboard.placeShip(p1ship2, 8, 6, false)
+    // p1.gameboard.placeShip(p1ship3, 4, 7, false)
+    // p1.gameboard.placeShip(p1ship4, 7, 8, true)
+    ships = [new Ship(4), new Ship(3), new Ship(2), new Ship(1)]
+
+    Dom.placeShips()
 
     p2.gameboard.placeShipsRandomly()
     // put ships = [...] here later
 
 }
 
-const setBoardBtn = document.querySelector('.set-board button')
+const setBoardBtn = document.querySelector('.set-board #place')
+const randomizeCoordsBtn = document.querySelector('.set-board #random')
 const setBoardDiaglog = document.querySelector('.set-board')
 
 const setX = document.querySelector('#x')
 const setY = document.querySelector('#y')
+const setVert = document.querySelector('#isVertical')
 
 setBoardBtn.addEventListener('click', () => {
     console.log(setX.value)
@@ -88,15 +93,28 @@ setBoardBtn.addEventListener('click', () => {
 
     const x = parseInt(setX.value)
     const y = parseInt(setY.value)
+    const isVert = setVert.checked
     console.log(typeof(x))
 
     // p1.gameboard.placeShip(p1ship1, 5, 2, true)
-    if (p1.gameboard.placeShip(ships[0], x, y, true)) {
+    if (p1.gameboard.placeShip(ships[0], x, y, isVert)) {
         ships.shift()
         if (ships.length == 0) setBoardDiaglog.close()
-        
+        console.log(ships.length)
     }
     console.log(p1.gameboard.board)
 
 })
 
+function randomizeCoords() {
+    const x = Math.floor(Math.random()*10)
+    const y = Math.floor(Math.random()*10)
+    const isVertical = Math.floor(Math.random()*2)
+    
+    setX.value = x
+    setY.value = y
+}
+
+randomizeCoordsBtn.addEventListener('click', () => {
+    randomizeCoords()
+})
